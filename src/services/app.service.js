@@ -2,7 +2,6 @@ import { loadMessages, saveMessage } from "./chats.service.js";
 
 import { Server } from "socket.io";
 
-
 let socketFunctions = (httpServer) => {
 
     const socketServer = new Server(httpServer);

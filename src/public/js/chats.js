@@ -2,11 +2,10 @@ const socket = io();
 let user;
 let chatBox = document.getElementById("chatBox")
 
-//Verifico usuario
 Swal.fire({
-    title: "Coloca tu nombre de usuario",
+    title: "Usuario",
     input: "text",
-    text: "Ingresa tu nombre usuario para identificarte en el chat",
+    text: "Ingrese su nombre de Usuario",
     inputValidator: (value) => {
         return !value && "Necesitas un nombre de usuario para continuar!"
     },
