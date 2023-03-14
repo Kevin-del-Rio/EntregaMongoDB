@@ -1,9 +1,12 @@
 import { Router } from 'express';
+
+// ACTIVAR PARA TRABAJAR CON FILE-SYSTEM
 // import CartManager from '../dao/filesystem/models/cartModel.js'
 // import productManager from '../dao/filesystem/models/productModel.js';
 
-import CartManager from '../dao/db/classModel/cart.js'
-import productManager from '../dao/db/classModel/product.js';
+// ACTIVAR PARA TRABAJAR CON MongoDB
+import CartManager from '../dao/db/classModel/cart.js' 
+import productManager from '../dao/db/classModel/product.js'; 
 
 
 const router = Router();

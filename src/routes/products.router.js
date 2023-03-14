@@ -1,7 +1,11 @@
 import { Router } from 'express';
-import productManager from '../dao/filesystem/models/productModel.js';
-// import productManager from "../dao/db/classModel/product.js"
-// import { io } from "../app.js";
+
+// ACTIVAR PARA TRABAJAR CON FILE-SYSTEM
+// import productManager from '../dao/filesystem/models/productModel.js';
+
+// ACTIVAR PARA TRABAJAR CON MongoDB
+import productManager from "../dao/db/classModel/product.js"
+
 
 const router = Router();
 const pm = new productManager();
@@ -9,7 +13,7 @@ const pm = new productManager();
 
 // MOSTAR TODOS LOS PRODUCTOS
 router.get('/', async (req, res) => {
-    try {    
+    try {
         let products = await pm.getProduct()
         res.status(200).send(products);
     }
@@ -22,12 +26,12 @@ router.get('/', async (req, res) => {
         });
     }
 })
-router.get('/query', async(req, res) => {
-    try {    
-        let products = await pm.getProduct() 
+router.get('/query', async (req, res) => {
+    try {
+        let products = await pm.getProduct()
         let limit = req.query.limit;
         if (limit > 0) {
-            let prod = products.slice(1, limit)
+            let prod = products.slice(0, limit)
             res.send(JSON.stringify(prod));
         } else {
             res.send(JSON.stringify(products))
@@ -45,9 +49,9 @@ router.get('/query', async(req, res) => {
 
 // MOSTRAR UN PRODUCTO
 router.get('/:pid', async (req, res) => {
-    try {        
+    try {
         let id = await req.params.pid;
-        let product = await pm.getProductById(id)        
+        let product = await pm.getProductById(id)
         res.status(200).send(product);
     }
     catch (e) {
@@ -62,21 +66,13 @@ router.get('/:pid', async (req, res) => {
 // // AGREGAR UN PRODUCTO
 router.post("/", async (req, res) => {
     try {
-      const product = req.body;
-      const response = await pm.addProduct(product);
-    //   if (response.error)
-    //     return res
-    //       .status(400)
-    //       .send({ status: "error", message: response.error.message });
-  
-    //   const products = await pm.getProduct();
-    //   io.emit("realTimeProducts", products);
-  
-      res.send({ status: "success", message: "Product added" });
+        const product = req.body;
+        const response = await pm.addProduct(product);
+        res.send({ status: "success", message: "Product added" });
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
-  });
+});
 // // ACTUALIZAR UN PRODUCTO
 router.put('/:id', async (req, res) => {
     let id = await req.params.id
@@ -91,8 +87,8 @@ router.put('/:id', async (req, res) => {
         })
     }
     catch (e) {
-        res.status(200).send({
-            message: "Producto actualizado correctamente",
+        res.status(409).send({
+            message: "Producto no se pudo actualizar",
             data: updateProd
         })
     }
@@ -100,19 +96,9 @@ router.put('/:id', async (req, res) => {
 // // BORRAR UN PRODUCTO
 router.delete('/:id', async (req, res) => {
     let ids = req.params.id;
-    try {      
-      const response = await pm.deleteProduct(ids);
-    //   if (response.status === "success") {
-    //     const products = await pm.getProduct();
-    //     console.log("hola perro")
-    //     io.emit("realTimeProducts", products);
-    //     return res.send({ status: "success", message: "Product delete" });
-    //   }
-    //   res.status(404).send({
-    //     status: "error",
-    //     message: response.error,
-    //   });
-    return res.send({ status: "success", message: "Product delete" });
+    try {
+        await pm.deleteProduct(ids);
+        return res.send({ status: "success", message: "Product delete" });
     }
     catch (e) {
         res.status(409).send({

@@ -96,7 +96,8 @@ class ProductManager {
 
     }
 
-    updateProductById = async (id, nuevoProducto) => {
+    updateProductById = async (ids, nuevoProducto) => {
+        let id = parseInt(ids)
         await this.#traerProductos();
         const updateProduct = this.#listaProducts.map((prod) => {
             if (prod.id === id) {
