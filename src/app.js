@@ -10,6 +10,7 @@ import socketFunctions from "./services/app.service.js"
 
 
 const app = express();
+
 const server_port = 8080;
 
 //configuracion para recibir objetos json
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //uso de carpeta public
 app.use(express.static(`${__dirname}/public`));
+
 
 //uso de vistas de  plantillas 
 app.engine('handlebars', handlebars.engine())
@@ -37,7 +39,7 @@ const connectMongoDB = async () => {
         await mongoose.connect("mongodb+srv://KdelRio:Kevinykari1234@codercluster.2xealsj.mongodb.net/Ecommerce?retryWrites=true&w=majority")
         console.log("Conectado a MongoDB via Mongoose");
     } catch (error) {
-        console.error("No se pudo conectad a la BD usando Mongoose: " + error);
+        console.error("No se pudo conectar a la BD usando Mongoose: " + error);
         process.exit();
     }
 };

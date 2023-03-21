@@ -2,8 +2,8 @@ import express from "express";
 import ProductManager from "../dao/filesystem/models/productModel.js";
 import { io } from "../app.js";
 
-const router = express.Router()
 
+const router = express.Router()
 const pm = new ProductManager();
 
 router.get('/', (req, res)=>{
