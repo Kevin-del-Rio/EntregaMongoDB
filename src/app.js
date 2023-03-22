@@ -6,7 +6,7 @@ import handlebars from 'express-handlebars';
 import viewsRouter from './routes/views.router.js'
 import { Server } from "socket.io";
 import mongoose from "mongoose";
-import socketFunctions from "./services/app.service.js"
+
 
 
 const app = express();
@@ -44,5 +44,5 @@ const connectMongoDB = async () => {
     }
 };
 
-connectMongoDB();
-const socketServer = socketFunctions(server)
+connectMongoDB();  
+  

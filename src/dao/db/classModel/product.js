@@ -61,6 +61,7 @@ class productManager {
             console.error("Error al actuadizar un productos", error)
         };
     };
+ 
 }
 
 export default productManager;

@@ -6,7 +6,6 @@ const router = Router();
 const pm = new productManager();
 
 
-
 // MOSTAR TODOS LOS PRODUCTOS
 router.get('/', async (req,res) => {
     let { limit , page , sort , query } = req.query;
@@ -33,6 +32,7 @@ router.get('/', async (req,res) => {
         res.status(500).json({status: "error" , message: error.message});
     }
 });
+
 router.get('/query', async (req, res) => {
     try {
         let products = await pm.getProduct()
